@@ -28,10 +28,11 @@ body {
   --elt-pad: 0.5rem 1rem;
   display: flex;
   flex-direction: column;
-  height: fit-content;
   border-radius: var(--border-rad);
+  margin-bottom: 1.5rem;
   max-width: 1280px;
   overflow: auto;
+  height: 100%;
   width: 100%;
   gap: 0.3rem;
 }
@@ -48,6 +49,7 @@ body {
   display: flex;
   justify-content: space-between;
   gap: 0.3rem;
+  flex: 1;
 }
 
 .row-header > [class^="cell-"] {
@@ -58,6 +60,9 @@ body {
 div[class^="row-"] > [class^="cell-"] {
   flex: 1;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: var(--elt-pad);
   border-radius: 0.3rem;
   border: 0.2rem solid transparent;
@@ -138,6 +143,7 @@ div[class^="row-"] .cell-total-hrs {
   display: flex;
   width: 100%;
   gap: 0.5rem;
+  flex: 1.2;
 }
 
 .button-row > button {

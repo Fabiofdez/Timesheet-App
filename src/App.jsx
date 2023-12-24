@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-const { useState } = React;
+const { useState, Fragment } = React;
 
 const App = () => {
   const fullTime = 40 * 60;
@@ -128,7 +128,9 @@ const App = () => {
   }
 
   function formatClockTime(time = "") {
-    const timeStr = `${time}`.replace(/:/, "");
+    let timeStr = `${time}`.replace(/:/, "");
+    if (isNaN(parseInt(timeStr))) return "";
+    timeStr = `${parseInt(timeStr)}`;
     const hrs = timeStr.slice(0, timeStr.length - 2) || "0";
     const mins = timeStr.slice(-2);
     return `${parseInt(hrs)}:${mins.padStart(2, "0")}`;
@@ -183,7 +185,11 @@ const App = () => {
     const row = cell.parentNode;
     const colIdx = cell.getAttribute("col-idx");
     const rowIdx = row.getAttribute("row-idx");
-    if (event.key === "ArrowUp" && parseInt(rowIdx) > 0) {
+    if (event.key === "ArrowLeft" && parseInt(colIdx) === 2) {
+      cell.previousSibling.focus();
+    } else if (event.key === "ArrowRight" && parseInt(colIdx) === 1) {
+      cell.nextSibling.focus();
+    } else if (event.key === "ArrowUp" && parseInt(rowIdx) > 0) {
       row.previousSibling.childNodes[parseInt(colIdx)].focus();
     } else if (event.key === "ArrowDown" && parseInt(rowIdx) < 6) {
       row.nextSibling.childNodes[parseInt(colIdx)].focus();
@@ -282,7 +288,7 @@ const App = () => {
   }
 
   return (
-    <>
+    <Fragment>
       <header>Timesheet Calculator</header>
       <div
         className="container"
@@ -302,7 +308,7 @@ const App = () => {
           </button>
         </div>
       </div>
-    </>
+    </Fragment>
   );
 };
 
