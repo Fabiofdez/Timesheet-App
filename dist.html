@@ -58,10 +58,34 @@
       }
 
       #root > header {
-        font-size: 2rem;
-        font-weight: 450;
         color: var(--main-fg-color);
-        margin-block: 0.5rem 0.2rem;
+        margin-top: 0.5rem;
+        flex-direction: column;
+        max-width: 1280px;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 450;
+        display: flex;
+        width: 100%;
+        gap: 0.5rem;
+      }
+
+      #root > header > h1 {
+        font-size: 2.2rem;
+        margin-bottom: 0;
+        font-weight: inherit;
+      }
+      #root > header > caption {
+        align-self: start;
+        font-size: 1.2rem;
+        display: flex;
+        gap: 0.3rem;
+      }
+      #root > header > caption > b {
+        font-weight: 600 !important;
+      }
+      #root > header > caption > div.vertical-sep {
+        padding-inline: 0.5rem;
       }
 
       .container > div[class^="row-"] {
@@ -119,6 +143,10 @@
         outline: 0.3rem solid white;
         outline-offset: -0.5rem;
         border-radius: 0.8rem;
+      }
+
+      .cell-day {
+        min-width: 3rem;
       }
 
       div[class^="row-"] .cell-end,
@@ -192,6 +220,7 @@
       .button-row > button.calc-enter {
         --btn-bg-color: var(--main-fg-color);
         --btn-border-color: var(--alt1-accent-color);
+        font-weight: 500;
         flex: 1.8;
       }
       .button-row > button.clear-sheet {
@@ -212,13 +241,19 @@
         --alt2-accent-color: #477fc7;
         --alt3-accent-color: #6ca8ed;
       }
+
+      @media screen and (max-width: 900px) {
+        #root > header > caption {
+          display: none;
+        }
+      }
     </style>
     <script type="text/babel">
       const { useState, Fragment } = React;
 
       const App = () => {
         const fullTime = 40 * 60;
-        const rates = [15, 14, 14, 14, 14, 14, 15];
+        const rates = [16.5, 15.5, 15.5, 15.5, 15.5, 15.5, 16.5];
 
         const initialArr = Array(7).fill("");
         const [starts, setStarts] = useState([...initialArr]);
@@ -442,7 +477,7 @@
                 OT Hours
               </div>
               <div className="cell-total-hrs" tabIndex={-1}>
-                Total Hrs
+                Total Hours
               </div>
             </div>,
           );
@@ -513,7 +548,17 @@
 
         return (
           <Fragment>
-            <header>Timesheet Calculator</header>
+            <header>
+              <h1>Timesheet Calculator</h1>
+              <caption>
+                <div className="vertical-sep">Rates: </div>
+                <b>${rates[1].toFixed(2)}/hr</b> - Weekdays
+                <div className="vertical-sep">|</div>
+                <b>${rates[0].toFixed(2)}/hr</b> - Weekend
+                <div className="vertical-sep">|</div>
+                Breaks - <b>30min</b>
+              </caption>
+            </header>
             <div
               className="container"
               onKeyDown={(event) => {

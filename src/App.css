@@ -38,10 +38,34 @@ body {
 }
 
 #root > header {
-  font-size: 2rem;
-  font-weight: 450;
   color: var(--main-fg-color);
-  margin-block: 0.5rem 0.2rem;
+  margin-top: 0.5rem;
+  flex-direction: column;
+  max-width: 1280px;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 450;
+  display: flex;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+#root > header > h1 {
+  font-size: 2.2rem;
+  margin-bottom: 0;
+  font-weight: inherit;
+}
+#root > header > caption {
+  align-self: start;
+  font-size: 1.2rem;
+  display: flex;
+  gap: 0.3rem;
+}
+#root > header > caption > b {
+  font-weight: 600 !important;
+}
+#root > header > caption > div.vertical-sep {
+  padding-inline: 0.5rem;
 }
 
 .container > div[class^="row-"] {
@@ -101,6 +125,10 @@ div[class^="row-"] > input:focus-visible {
   border-radius: 0.8rem;
 }
 
+.cell-day {
+  min-width: 3rem;
+}
+
 div[class^="row-"] .cell-end,
 div[class^="row-"] .cell-start {
   flex: 1.5;
@@ -143,7 +171,6 @@ div[class^="row-"] .cell-total-hrs {
   display: flex;
   width: 100%;
   gap: 0.5rem;
-  flex: 1.2;
 }
 
 .button-row > button {
@@ -173,6 +200,7 @@ div[class^="row-"] .cell-total-hrs {
 .button-row > button.calc-enter {
   --btn-bg-color: var(--main-fg-color);
   --btn-border-color: var(--alt1-accent-color);
+  font-weight: 500;
   flex: 1.8;
 }
 .button-row > button.clear-sheet {
@@ -192,4 +220,10 @@ div.separator {
   --alt1-accent-color: #324aab;
   --alt2-accent-color: #477fc7;
   --alt3-accent-color: #6ca8ed;
+}
+
+@media screen and (max-width: 900px) {
+  #root > header > caption {
+    display: none;
+  }
 }

@@ -4,7 +4,7 @@ const { useState, Fragment } = React;
 
 const App = () => {
   const fullTime = 40 * 60;
-  const rates = [15, 14, 14, 14, 14, 14, 15];
+  const rates = [16.5, 15.5, 15.5, 15.5, 15.5, 15.5, 16.5];
 
   const initialArr = Array(7).fill("");
   const [starts, setStarts] = useState([...initialArr]);
@@ -185,9 +185,14 @@ const App = () => {
     const row = cell.parentNode;
     const colIdx = cell.getAttribute("col-idx");
     const rowIdx = row.getAttribute("row-idx");
+    const caretStart = event.target.selectionStart;
+    const caretEnd = event.target.selectionEnd;
+    const inputValue = event.target.value;
     if (event.key === "ArrowLeft" && parseInt(colIdx) === 2) {
+      if (caretStart > 0) return;
       cell.previousSibling.focus();
     } else if (event.key === "ArrowRight" && parseInt(colIdx) === 1) {
+      if (caretEnd < inputValue.length) return;
       cell.nextSibling.focus();
     } else if (event.key === "ArrowUp" && parseInt(rowIdx) > 0) {
       row.previousSibling.childNodes[parseInt(colIdx)].focus();
@@ -218,7 +223,7 @@ const App = () => {
           OT Hours
         </div>
         <div className="cell-total-hrs" tabIndex={-1}>
-          Total Hrs
+          Total Hours
         </div>
       </div>,
     );
@@ -289,7 +294,17 @@ const App = () => {
 
   return (
     <Fragment>
-      <header>Timesheet Calculator</header>
+      <header>
+        <h1>Timesheet Calculator</h1>
+        <caption>
+          <div className="vertical-sep">Rates: </div>
+          <b>${rates[1].toFixed(2)}/hr</b> - Weekdays
+          <div className="vertical-sep">|</div>
+          <b>${rates[0].toFixed(2)}/hr</b> - Weekend
+          <div className="vertical-sep">|</div>
+          Breaks - <b>30min</b>
+        </caption>
+      </header>
       <div
         className="container"
         onKeyDown={(event) => {
